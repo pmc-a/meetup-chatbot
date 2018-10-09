@@ -1,0 +1,24 @@
+{
+  "name": "meetup-chatbot",
+  "version": "1.0.0",
+  "description": "A chatbot that will provide information about local events",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmc-a/meetup-chatbot.git"
+  },
+  "keywords": [
+    "meetup",
+    "chatbot"
+  ],
+  "author": "pmc-a",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pmc-a/meetup-chatbot/issues"
+  },
+  "homepage": "https://github.com/pmc-a/meetup-chatbot#readme",
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "restify": "^7.2.1"
+  }
+}
