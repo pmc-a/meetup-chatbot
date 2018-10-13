@@ -1,10 +1,13 @@
 const path = require('path');
-const restify = require('restify');
+const express = require('express');
+const serverlessHttp = require('serverless-http');
 
 // Bot Framework dependencies
 const { BotFrameworkAdapter } = require('botbuilder');
 const { BotConfiguration } = require('botframework-config');
 const { LuisBot } = require('./bot');
+
+const app = express();
 
 const ENV_FILE = path.join(__dirname, '.env');
 require('dotenv').config({ path: ENV_FILE });
@@ -59,15 +62,15 @@ try {
     process.exit();
 }
 
-let server = restify.createServer();
-
 // Listen for incoming requests.
-server.post('/api/messages', (req, res) => {
+app.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async(turnContext) => {
         await bot.onTurn(turnContext);
     });
 });
 
-server.listen(3978, () => {
-    console.log(`Listening on ${server.url}.`);
+app.listen(3978, () => {
+    console.log(`Listening on 3978.`);
 });
+
+module.exports.handler = serverlessHttp(app);
