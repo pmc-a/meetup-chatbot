@@ -21,11 +21,13 @@
   },
   "homepage": "https://github.com/pmc-a/meetup-chatbot#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "botbuilder": "^4.0.6",
     "botbuilder-ai": "^4.0.6",
     "botframework-config": "^4.0.6",
     "dotenv": "^6.1.0",
-    "restify": "^7.2.1"
+    "express": "^4.16.4",
+    "serverless-http": "^1.6.0"
   },
   "devDependencies": {
     "jest": "^23.6.0"

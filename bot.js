@@ -1,5 +1,12 @@
-const { ActivityTypes } = require('botbuilder');
+const axios = require('axios');
+const { ActivityTypes, CardFactory } = require('botbuilder');
 const { LuisRecognizer } = require('botbuilder-ai');
+
+const getMeetupInfoIntent = require('./intents/getMeetupInfoIntent');
+
+// Intents
+const GET_MEEUP_INFO_INTENT = 'GetMeetupInfo';
+const GREETING_INTENT = 'Greeting';
 
 class LuisBot {
     constructor(application, luisPredictionOptions, includeApiResults) {
@@ -13,6 +20,14 @@ class LuisBot {
             const topIntent = results.luisResult.topScoringIntent;
 
             if (topIntent.intent !== 'None') {
+              
+                switch(topIntent.intent) {
+                    case GET_MEEUP_INFO_INTENT:
+                        await getMeetupInfoIntent.handleIntent(turnContext, results.luisResult);
+                    case GREETING_INTENT:
+                        await turnContext.sendActivity('Hey! Ask me something to get started, or ask me for some help');
+                }
+
                 await turnContext.sendActivity(`LUIS Top Scoring Intent: ${ topIntent.intent }, Score: ${ topIntent.score }`);
             } else {
                 await turnContext.sendActivity(`No LUIS intents were found.`);
