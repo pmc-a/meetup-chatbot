@@ -31,7 +31,7 @@ describe('Bot', () => {
     });
 
     it('should not invoke LUIS recognize when user sends any other type of response', () => {
-        const mockTurnContext = { activity: { type: 'card' } };
+        const mockTurnContext = { activity: { type: 'card' }, sendActivity: jest.fn() };
 
         luisBot.onTurn(mockTurnContext);
 
