@@ -36,7 +36,7 @@ describe('getMeetupInfoIntent', () => {
     };
 
     // Mock Meetup API key environment variable
-    process.env.meetupApiKey = mockApiKey;
+    process.env.MeetupApiKey = mockApiKey;
 
     // Mock Axios Meetup API get request
     axios.get.mockImplementation(() => Promise.resolve(mockMeetupApiResponse));
@@ -44,7 +44,7 @@ describe('getMeetupInfoIntent', () => {
 
   afterEach(() => {
     // Ensure that mock API key is cleaned up after
-    delete process.env.meetupApiKey;
+    delete process.env.MeetupApiKey;
   });
 
   it('should make a request to the meetup API with the correct entity', async () => {
