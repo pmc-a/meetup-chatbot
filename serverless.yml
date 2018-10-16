@@ -8,8 +8,8 @@ provider:
   stage: dev
   region: us-east-1
   environment:
-    MicrosoftAppId: $(env:MICROSOFT_APP_ID)
-    MicrosoftAppPassword: $(env:MICROSOFT_APP_PASSWORD)
+    MicrosoftAppId: ${env:MICROSOFT_APP_ID}
+    MicrosoftAppPassword: ${env:MICROSOFT_APP_PASSWORD}
 
 functions:
   app:
