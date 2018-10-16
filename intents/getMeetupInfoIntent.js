@@ -13,7 +13,11 @@ async function handleIntent(turnContext, luisResult) {
   // E.g. image, name, short description etc.
   const card = CardFactory.heroCard(
     meetupInfo.name,
-    [meetupInfo.group_photo.highres_link]
+    'some subtitle text, hopefully?',
+    [meetupInfo.group_photo.highres_link],
+    CardFactory.actions([
+      { type: 'openUrl', title: 'See More', value: meetupInfo.link }
+    ])
   );
 
   let reply = { type: ActivityTypes.Message };

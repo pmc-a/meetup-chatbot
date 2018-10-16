@@ -30,7 +30,8 @@ describe('getMeetupInfoIntent', () => {
           name: 'BelfastJS',
           group_photo: {
             highres_link: 'mock-url'
-          }
+          },
+          link: 'mock-link'
         }]
       }
     };
@@ -55,7 +56,14 @@ describe('getMeetupInfoIntent', () => {
 
   it('should correctly create a card object and return it to the user', async () => {
     const mockReply = { type: ActivityTypes.Message };
-    const mockCard = CardFactory.heroCard('BelfastJS', ['mock-url']);
+    const mockCard = CardFactory.heroCard(
+      'BelfastJS',
+      'some subtitle text, hopefully?',
+      ['mock-url'],
+      CardFactory.actions([
+        { type: 'openUrl', title: 'See More', value: 'mock-link' }
+      ])
+    );
 
     mockReply.attachments = [mockCard];
 
