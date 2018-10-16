@@ -15,8 +15,8 @@ npm install -g serverless
 # Echo serverless framework version
 serverless -v
 
-# Move back to root dir
-cd ..
+# Move into root dir
+cd meetup-chatbot-dev-app
 
 # Log current dir
 pwd
