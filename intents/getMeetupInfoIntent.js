@@ -5,7 +5,7 @@ async function handleIntent(turnContext, luisResult) {
   // LUIS result entities sometimes come back as space separated
   const meetupEntity = luisResult.entities[0].entity.split(' ').join('');
   const apiResult = await axios.get(
-    `https://api.meetup.com/2/groups?key=${process.env.meetupApiKey}&&sign=true&photo-host=public&group_urlname=${meetupEntity}`
+    `https://api.meetup.com/2/groups?key=${process.env.MeetupApiKey}&&sign=true&photo-host=public&group_urlname=${meetupEntity}`
   );
   const meetupInfo = apiResult.data.results[0];
 

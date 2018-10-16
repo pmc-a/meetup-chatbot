@@ -8,8 +8,12 @@ provider:
   stage: dev
   region: us-east-1
   environment:
+    MeetupApiKey: ${env:MEETUP_API_KEY}
     MicrosoftAppId: ${env:MICROSOFT_APP_ID}
     MicrosoftAppPassword: ${env:MICROSOFT_APP_PASSWORD}
+    LuisAppId: ${env:LUIS_APP_ID}
+    LuisAuthoringKey: ${env:LUIS_AUTHORING_KEY}
+    LuisAzureRegion: ${env:LUIS_AZURE_REGION}
 
 functions:
   app:
