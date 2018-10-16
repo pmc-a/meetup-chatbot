@@ -8,5 +8,5 @@ echo $AWS_SECRET_ACCESS_KEY
 # Echo serverless framework version
 serverless -v
 
-# Attempt to deploy
+# Attempt to deploy via serverless framework
 serverless deploy -v
