@@ -12,7 +12,7 @@ const app = express();
 const ENV_FILE = path.join(__dirname, '.env');
 require('dotenv').config({ path: ENV_FILE });
 
-const BOT_FILE = path.join(__dirname, (process.env.botFilePath || ''));
+const BOT_FILE = path.join(__dirname, (process.env.botFilePath || './meetup-chatbot.bot'));
 let botConfig;
 try {
     // Read configuration from .bot file.
@@ -30,9 +30,9 @@ const BOT_CONFIGURATION = (process.env.NODE_ENV || 'development');
 const endpointConfig = botConfig.findServiceByNameOrId(BOT_CONFIGURATION);
 
 const luisApplication = {
-    applicationId: process.env.luisAppId,
-    endpointKey: process.env.luisAuthoringKey,
-    azureRegion: process.env.luisAzureRegion
+    applicationId: process.env.LuisAppId,
+    endpointKey: process.env.LuisAuthoringKey,
+    azureRegion: process.env.LuisAzureRegion
 };
 
 const luisPredictionOptions = {
