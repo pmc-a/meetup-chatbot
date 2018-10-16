@@ -5,6 +5,9 @@ npm -v
 echo $AWS_ACCESS_KEY_ID
 echo $AWS_SECRET_ACCESS_KEY
 
+# Install serverless framework
+npm install -g serverless
+
 # Echo serverless framework version
 serverless -v
 
