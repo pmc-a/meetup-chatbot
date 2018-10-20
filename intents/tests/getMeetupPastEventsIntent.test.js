@@ -1,13 +1,13 @@
 const axios = require('axios');
-const { ActivityTypes, CardFactory } = require('botbuilder');
+const { CardFactory, MessageFactory } = require('botbuilder');
 
-const getMeetupInfoIntent = require('../getMeetupInfoIntent');
+const getMeetupPastEventsIntent = require('../getMeetupPastEventsIntent');
 
 jest.mock('axios');
 
-describe('getMeetupInfoIntent', () => {
+describe('getMeetupPastEventsIntent', () => {
   const mockApiKey = 'mock-api-key';
-  const mockLuisEntity = 'belfast-js';
+  const mockLuisEntity = 'pybelfast';
 
   let intent;
   let mockTurnContent;
@@ -15,26 +15,36 @@ describe('getMeetupInfoIntent', () => {
   let mockMeetupApiResponse;
 
   beforeEach(() => {
-    intent = getMeetupInfoIntent.handleIntent;
+    intent = getMeetupPastEventsIntent.handleIntent;
     mockTurnContent = {
       sendActivity: jest.fn()
     };
+
     mockLuisResult = {
       entities: [{
         entity: mockLuisEntity
+      }, {
+        resolution: {
+          value: '1'
+        }
       }]
     };
+
     mockMeetupApiResponse = {
-      data: {
-        results: [{
-          name: 'BelfastJS',
-          description: 'Mock description about BelfastJS',
+      data: [{
+          name: 'PyBelfast',
           group_photo: {
             highres_link: 'mock-url'
           },
           link: 'mock-link'
-        }]
-      }
+        }, {
+          name: 'Charged',
+          description: 'Mock description for Charged',
+          group_photo: {
+            highres_link: 'mock-url'
+          },
+          link: 'mock-link'
+      }]
     };
 
     // Mock Meetup API key environment variable
@@ -52,25 +62,21 @@ describe('getMeetupInfoIntent', () => {
   it('should make a request to the meetup API with the correct entity', async () => {
     await intent(mockTurnContent, mockLuisResult);
 
-    expect(axios.get).toHaveBeenCalledWith(`https://api.meetup.com/2/groups?key=${mockApiKey}&&sign=true&photo-host=public&group_urlname=${mockLuisEntity}`);
+    expect(axios.get).toHaveBeenCalledWith(`https://api.meetup.com/${mockLuisEntity}/events?&sign=true&photo-host=public&status=past`);
   });
 
-  it('should correctly create a card object and return it to the user', async () => {
-    const mockReply = { type: ActivityTypes.Message };
+  it('should create a carousel of cards with the correct meetup info before sending back to the user', async () => {
+    MessageFactory.carousel = jest.fn();
     const mockCard = CardFactory.heroCard(
-      'BelfastJS',
-      'Mock description about BelfastJS',
-      ['mock-url'],
+      'Charged',
+      'Mock description for Charged',
       CardFactory.actions([
         { type: 'openUrl', title: 'See More', value: 'mock-link' }
       ])
     );
-
-    mockReply.attachments = [mockCard];
-
+    
     await intent(mockTurnContent, mockLuisResult);
 
-    expect(mockTurnContent.sendActivity).toHaveBeenCalledWith(`Meetup name: BelfastJS`);
-    expect(mockTurnContent.sendActivity).toHaveBeenCalledWith(mockReply);
+    expect(MessageFactory.carousel).toHaveBeenCalledWith([mockCard]);
   });
 });
