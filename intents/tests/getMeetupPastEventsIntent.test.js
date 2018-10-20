@@ -10,13 +10,13 @@ describe('getMeetupPastEventsIntent', () => {
   const mockLuisEntity = 'pybelfast';
 
   let intent;
-  let mockTurnContent;
+  let mockTurnContext;
   let mockLuisResult;
   let mockMeetupApiResponse;
 
   beforeEach(() => {
     intent = getMeetupPastEventsIntent.handleIntent;
-    mockTurnContent = {
+    mockTurnContext = {
       sendActivity: jest.fn()
     };
 
@@ -60,7 +60,7 @@ describe('getMeetupPastEventsIntent', () => {
   });
 
   it('should make a request to the meetup API with the correct entity', async () => {
-    await intent(mockTurnContent, mockLuisResult);
+    await intent(mockTurnContext, mockLuisResult);
 
     expect(axios.get).toHaveBeenCalledWith(`https://api.meetup.com/${mockLuisEntity}/events?&sign=true&photo-host=public&status=past`);
   });
@@ -75,7 +75,7 @@ describe('getMeetupPastEventsIntent', () => {
       ])
     );
     
-    await intent(mockTurnContent, mockLuisResult);
+    await intent(mockTurnContext, mockLuisResult);
 
     expect(MessageFactory.carousel).toHaveBeenCalledWith([mockCard]);
   });
