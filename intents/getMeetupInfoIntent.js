@@ -9,11 +9,9 @@ async function handleIntent(turnContext, luisResult) {
   );
   const meetupInfo = apiResult.data.results[0];
 
-  // TODO: Reply to user with nice heroCard containing Meetup API response details
-  // E.g. image, name, short description etc.
   const card = CardFactory.heroCard(
     meetupInfo.name,
-    'some subtitle text, hopefully?',
+    meetupInfo.description,
     [meetupInfo.group_photo.highres_link],
     CardFactory.actions([
       { type: 'openUrl', title: 'See More', value: meetupInfo.link }
