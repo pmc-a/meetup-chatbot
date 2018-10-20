@@ -1,6 +1,7 @@
 # package directories
 .env
 .vscode
+coverage
 node_modules
 jspm_packages
 
