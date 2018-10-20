@@ -10,13 +10,13 @@ describe('getMeetupInfoIntent', () => {
   const mockLuisEntity = 'belfast-js';
 
   let intent;
-  let mockTurnContent;
+  let mockTurnContext;
   let mockLuisResult;
   let mockMeetupApiResponse;
 
   beforeEach(() => {
     intent = getMeetupInfoIntent.handleIntent;
-    mockTurnContent = {
+    mockTurnContext = {
       sendActivity: jest.fn()
     };
     mockLuisResult = {
@@ -50,7 +50,7 @@ describe('getMeetupInfoIntent', () => {
   });
 
   it('should make a request to the meetup API with the correct entity', async () => {
-    await intent(mockTurnContent, mockLuisResult);
+    await intent(mockTurnContext, mockLuisResult);
 
     expect(axios.get).toHaveBeenCalledWith(`https://api.meetup.com/2/groups?key=${mockApiKey}&&sign=true&photo-host=public&group_urlname=${mockLuisEntity}`);
   });
@@ -68,9 +68,9 @@ describe('getMeetupInfoIntent', () => {
 
     mockReply.attachments = [mockCard];
 
-    await intent(mockTurnContent, mockLuisResult);
+    await intent(mockTurnContext, mockLuisResult);
 
-    expect(mockTurnContent.sendActivity).toHaveBeenCalledWith(`Meetup name: BelfastJS`);
-    expect(mockTurnContent.sendActivity).toHaveBeenCalledWith(mockReply);
+    expect(mockTurnContext.sendActivity).toHaveBeenCalledWith(`Meetup name: BelfastJS`);
+    expect(mockTurnContext.sendActivity).toHaveBeenCalledWith(mockReply);
   });
 });
