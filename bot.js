@@ -1,15 +1,17 @@
-const { ActivityTypes, CardFactory } = require('botbuilder');
+const { ActivityTypes } = require('botbuilder');
 const { LuisRecognizer } = require('botbuilder-ai');
 
 const getMeetupInfoIntent = require('./intents/getMeetupInfoIntent');
 const getMeetupPastEventsIntent = require('./intents/getMeetupPastEventsIntent');
 const getMeetupNextEventAvailability = require('./intents/getMeetupNextEventAvailabilityIntent');
+const helpIntent = require('./intents/helpIntent');
 const greetingIntent = require('./intents/greetingIntent');
 
 // Intents
 const GET_MEEUP_INFO_INTENT = 'GetMeetupInfo';
 const GET_MEETUP_PAST_EVENTS_INTENT = 'GetMeetupPastEvents';
 const GET_MEETUP_NEXT_EVENT_AVAILABILITY = 'GetMeetupNextEventAvailability';
+const HELP_INTENT = 'Help';
 const GREETING_INTENT = 'Greeting';
 
 class LuisBot {
@@ -34,6 +36,9 @@ class LuisBot {
                         break;
                     case GET_MEETUP_NEXT_EVENT_AVAILABILITY:
                         await getMeetupNextEventAvailability.handleIntent(turnContext, results.luisResult);
+                        break;
+                    case HELP_INTENT:
+                        await helpIntent.handleIntent(turnContext);
                         break;
                     case GREETING_INTENT:
                         await greetingIntent.handleIntent(turnContext);
