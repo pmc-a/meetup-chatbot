@@ -8,7 +8,7 @@ describe('greetingIntent', () => {
   });
 
   it('should call sendActivity with the correct greeting message', async () => {
-    const greetingMessage = 'Hey! Ask me something to get started, or ask me for some help';
+    const greetingMessage = 'Ask me something to get started, or ask me for some help';
     const mockTurnContext = { sendActivity: jest.fn() };
 
     await intent(mockTurnContext);
